@@ -1,44 +1,49 @@
 call plug#begin('~/.vim/plugged')
+
 " fundamental
-Plug 'tpope/vim-dispatch'
-Plug 'tpope/vim-vinegar'
-Plug 'mileszs/ack.vim'
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'justinmk/vim-sneak'
-Plug 'Valloric/YouCompleteMe'
-Plug 'scrooloose/syntastic'
-" js
-Plug 'marijnh/tern_for_vim', { 'do': 'npm install' }
-Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'moll/vim-node'
-Plug 'mxw/vim-jsx'
-" ts
-Plug 'leafgarland/typescript-vim' " syntax highlight
-Plug 'Shougo/vimproc.vim', {'do' : 'make'} " required by tsuquyomi
-Plug 'Quramy/tsuquyomi' " typescript support
-" elm
-Plug 'lambdatoast/elm.vim'
-" c#
-Plug 'OmniSharp/omnisharp-vim'
-" haskell
-Plug 'neovimhaskell/haskell-vim'
-" handy stuff
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
+Plug 'alvan/vim-closetag' " allows to automatically close xml tags
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'junegunn/vim-easy-align'
-Plug 'alvan/vim-closetag'
-Plug 'jiangmiao/auto-pairs'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-commentary'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
+Plug 'justinmk/vim-sneak'
+Plug 'mileszs/ack.vim'
+Plug 'sjl/gundo.vim'
 Plug 'tpope/vim-abolish' " contains cr command (changing case-style for word)
-Plug 'tpope/vim-jdaddy'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dispatch' " ???
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
-" pretty stuff
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-vinegar'
+Plug 'vim-syntastic/syntastic'
+
+" js
+" Plug 'mtscout6/syntastic-local-eslint.vim'
+Plug 'pangloss/vim-javascript'
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+
+" haskell
+Plug 'neovimhaskell/haskell-vim'
+
+" ts
+" Plug 'leafgarland/typescript-vim' " syntax highlight
+" Plug 'Shougo/vimproc.vim', {'do' : 'make'} " required by tsuquyomi
+" Plug 'Quramy/tsuquyomi' " typescript support
+
+" c#
+" Plug 'OmniSharp/omnisharp-vim'
+
+" handy stuff
+" Plug 'junegunn/vim-easy-align'
+" Plug 'tpope/vim-jdaddy'
+
+" colors
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 set nocompatible
@@ -63,12 +68,13 @@ set smartcase
 set foldcolumn=1
 set number
 set cursorline
-set colorcolumn=100
+set colorcolumn=81
 
 set winminheight=0
 set winminwidth=0
 
 set nowrap
+set textwidth=0
 
 set scrolloff=5 " min number of lines to keep above/below cursor
 set sidescrolloff=10 " min number of columns to keep to the left/right of cursor
@@ -99,62 +105,85 @@ set visualbell
 
 syntax enable
 
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
+if !empty(glob("~/.vim/plugged/base16-vim")) && filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
 endif
 
-let g:airline_theme = 'base16_ashes'
-let g:airline_powerline_fonts = 1
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline_mode_map = {
-    \ 'n'  : 'N',
-    \ 'i'  : 'I',
-    \ 'v'  : 'V',
-    \ 'V'  : 'V',
-    \ '' : 'V'
-    \ }
-let g:airline_skip_empty_sections = 1
-let g:airline#extensions#default#layout = [
-    \ [ 'a', 'b', 'c' ],
-    \ [ 'x', 'z', 'error', 'warning' ]
-    \ ]
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ''
-let g:airline#extensions#tabline#left_alt_sep = ''
-let g:airline#extensions#tabline#right_sep = ''
-let g:airline#extensions#tabline#right_alt_sep = ''
-let g:airline#extensions#tabline#tab_nr_type = 1
-let g:airline#extensions#tabline#close_symbol = 'windows >'
-let g:airline#extensions#tabline#buffers_label = '< buffers'
-let g:airline#extensions#branch#format = 2
-let g:airline#extensions#wordcount#enabled = 0
-let g:airline#extensions#syntastic#enabled = 0
+if !empty(glob("~/.vim/plugged/vim-airline"))
+    let g:airline_theme = 'base16_tomorrow'
+    let g:airline_powerline_fonts = 1
+    let g:airline_left_sep = ''
+    let g:airline_right_sep = ''
+    let g:airline_mode_map = {
+                \ 'n'  : 'N',
+                \ 'i'  : 'I',
+                \ 'v'  : 'V',
+                \ 'V'  : 'V',
+                \ '' : 'V'
+                \ }
+    let g:airline#extensions#default#layout = [
+                \ [ 'a', 'b', 'c' ],
+                \ [ 'x', 'z', 'error', 'warning' ]
+                \ ]
+    let g:airline#extensions#tabline#enabled = 1
+    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
+    let g:airline#extensions#tabline#fnamemod = ':t'
+    let g:airline#extensions#tabline#left_sep = ''
+    let g:airline#extensions#tabline#left_alt_sep = ''
+    let g:airline#extensions#tabline#right_sep = ''
+    let g:airline#extensions#tabline#right_alt_sep = ''
+    let g:airline#extensions#tabline#tab_nr_type = 1
+    let g:airline#extensions#tabline#close_symbol = 'windows >'
+    let g:airline#extensions#tabline#buffers_label = '< buffers'
+    let g:airline#extensions#branch#format = 2
+    let g:airline#extensions#wordcount#enabled = 0
+    let g:airline#extensions#syntastic#enabled = 0
+endif
 
-let g:ctrlp_user_command=['.git', 'cd %s && git ls-files']
-let g:ctrlp_match_window='max:20'
+if !empty(glob("~/.vim/plugged/ctrlp.vim"))
+    let g:ctrlp_user_command = ['.git', 'git ls-files --cached --others --exclude-standard %s']
+    let g:ctrlp_match_window = 'max:20'
+endif
 
-let g:ack_use_dispatch = 1
-let g:ackprg = 'ag --vimgrep'
+if !empty(glob("~/.vim/plugged/ack.vim"))
+    let g:ack_use_dispatch = 1
+    let g:ackprg = 'ag --vimgrep --hidden'
+endif
 
-let g:syntastic_cs_checkers = ['syntax', 'semantic', 'issues']
-let g:syntastic_javascript_checkers=['eslint']
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_auto_loc_list=2
+if !empty(glob("~/.vim/plugged/syntastic"))
+    " let g:syntastic_javascript_checkers=['eslint']
+    let g:syntastic_always_populate_loc_list = 1
+    let g:syntastic_check_on_wq = 0
+    let g:syntastic_auto_loc_list=2 " don't open loc list automatically, but close if there are no errors
+endif
 
-let g:sneak#streak = 1
-let g:sneak#use_ic_scs = 1
+if !empty(glob("~/.vim/plugged/vim-sneak"))
+    let g:sneak#label = 1
+    let g:sneak#use_ic_scs = 1
+    let g:sneak#prompt = 'sneak > '
+endif
 
-let g:jsx_ext_required = 0
+if !empty(glob("~/.vim/plugged/vim-closetag"))
+    let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml'
+endif
 
-let g:javascript_plugin_flow = 1
+if !empty(glob("~/.vim/plugged/gundo.vim"))
+    let g:gundo_preview_bottom = 1
+endif
 
-xmap ga <Plug>(EasyAlign)
-nmap ga <Plug>(EasyAlign)
+if !empty(glob("~/.vim/plugged/vim-tmux-navigator"))
+    let g:tmux_navigator_disable_when_zoomed = 1
+endif
+
+" xmap ga <Plug>(EasyAlign)
+" nmap ga <Plug>(EasyAlign)
+
+nnoremap <C-W>z <C-W>_<C-W><Bar>
+nnoremap <C-W>j :set splitbelow<CR>:sp<CR>:set nosplitbelow<CR>
+nnoremap <C-W>k :sp<CR>
+nnoremap <C-W>l :set splitright<CR>:vsp<CR>:set nosplitright<CR>
+nnoremap <C-W>h :vsp<CR>
 
 map <Space> <Leader>
 
@@ -163,26 +192,19 @@ nnoremap <Leader>/ :nohl<CR>
 nnoremap <Leader>s :%s/
 vnoremap <Leader>s :s/
 
-nnoremap <Leader>c :so ~/.vimrc<CR>
-
-nnoremap <Leader>n <C-S-^>
-
-nnoremap <Leader>z <C-W>_<C-W><Bar>
-
 nnoremap <Leader>q :q<CR>
-nnoremap <Leader>d :bp\|:bd #<CR>
+nnoremap <Leader>Q :qa<CR>
 nnoremap <Leader>w :w<CR>
-
-nnoremap <Leader>e :! eslint --fix "%"
+nnoremap <Leader>d :bp\|:bd #<CR>
 
 noremap <Leader>x "_
 vnoremap <Leader>r "_dP
 
 nnoremap <Leader>p :CtrlPLine%<CR>
-
+nnoremap <Leader>u :GundoToggle<CR>
 nnoremap <Leader>a :Ack<CR>
+nnoremap <Leader>A :Ack<Space>
 vnoremap <Leader>a y:Ack<Space><C-R>*<CR>
-nnoremap <Leader>ga :Ack<Space>
 
 inoremap <C-U> <C-G>u<C-U>
 
