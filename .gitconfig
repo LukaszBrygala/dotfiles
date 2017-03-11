@@ -22,3 +22,5 @@
 	cmd = vim -f -c \"Gvdiff\" \"$MERGED\"
 [diff]
 	tool = vimdiff
+[mergetool]
+	keepBackup = false

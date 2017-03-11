@@ -9,15 +9,17 @@ Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
 Plug 'justinmk/vim-sneak'
 Plug 'mileszs/ack.vim'
 Plug 'sjl/gundo.vim'
+Plug 'stephpy/vim-yaml' " fix slow yamls
 Plug 'tpope/vim-abolish' " contains cr command (changing case-style for word)
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch' " ???
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 
 " js
 " Plug 'mtscout6/syntastic-local-eslint.vim'
@@ -65,8 +67,12 @@ set hlsearch
 set ignorecase
 set smartcase
 
+set lazyredraw " don't redraw while executing macro
+
 set foldcolumn=1
+set foldmethod=indent
 set number
+set foldlevel=10
 set cursorline
 set colorcolumn=81
 
@@ -111,7 +117,7 @@ if !empty(glob("~/.vim/plugged/base16-vim")) && filereadable(expand("~/.vimrc_ba
 endif
 
 if !empty(glob("~/.vim/plugged/vim-airline"))
-    let g:airline_theme = 'base16_tomorrow'
+    let g:airline_theme = 'base16_twilight'
     let g:airline_powerline_fonts = 1
     let g:airline_left_sep = ''
     let g:airline_right_sep = ''
@@ -147,7 +153,6 @@ if !empty(glob("~/.vim/plugged/ctrlp.vim"))
 endif
 
 if !empty(glob("~/.vim/plugged/ack.vim"))
-    let g:ack_use_dispatch = 1
     let g:ackprg = 'ag --vimgrep --hidden'
 endif
 
@@ -184,6 +189,9 @@ nnoremap <C-W>j :set splitbelow<CR>:sp<CR>:set nosplitbelow<CR>
 nnoremap <C-W>k :sp<CR>
 nnoremap <C-W>l :set splitright<CR>:vsp<CR>:set nosplitright<CR>
 nnoremap <C-W>h :vsp<CR>
+
+noremap <silent> zl @='10zl'<CR>
+noremap <silent> zh @='10zh'<CR>
 
 map <Space> <Leader>
 

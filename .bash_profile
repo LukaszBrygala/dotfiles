@@ -13,6 +13,8 @@ function cdls() {
     cd "$@" && ls -a
 }
 
+alias vi='vim'
+
 alias g='cdls'
 alias -- -='g ..'
 alias -- 2-='g ../..'
