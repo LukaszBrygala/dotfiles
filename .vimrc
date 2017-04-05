@@ -14,12 +14,13 @@ Plug 'tpope/vim-abolish' " contains cr command (changing case-style for word)
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dispatch' " ???
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'tpope/vim-vinegar'
-" Plug 'vim-syntastic/syntastic'
+Plug 'vim-syntastic/syntastic'
 
 " js
 " Plug 'mtscout6/syntastic-local-eslint.vim'
@@ -39,7 +40,6 @@ Plug 'neovimhaskell/haskell-vim'
 
 " handy stuff
 " Plug 'junegunn/vim-easy-align'
-" Plug 'tpope/vim-jdaddy'
 
 " colors
 Plug 'vim-airline/vim-airline'
@@ -157,7 +157,7 @@ if !empty(glob("~/.vim/plugged/ack.vim"))
 endif
 
 if !empty(glob("~/.vim/plugged/syntastic"))
-    " let g:syntastic_javascript_checkers=['eslint']
+    let g:syntastic_javascript_checkers=['eslint']
     let g:syntastic_always_populate_loc_list = 1
     let g:syntastic_check_on_wq = 0
     let g:syntastic_auto_loc_list=2 " don't open loc list automatically, but close if there are no errors

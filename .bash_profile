@@ -24,14 +24,18 @@ alias -- --='2-'
 alias -- ---='3-'
 alias -- ----='4-'
 
-# [[ ":$PATH:" != *":$HOME/bin:"* ]] && PATH="$PATH:$HOME/bin"
+[[ ":$PATH:" != *":$HOME/scripts:"* ]] && PATH="$PATH:$HOME/scripts"
 
-if [ -f ~/git-completion.bash ]; then
-    . ~/git-completion.bash
+if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
 fi
 
 if [ -f ~/.project-env ]; then
     . ~/.project-env # environment for working on current projects
+fi
+
+if [ -f ~/git-completion.bash ]; then
+    . ~/git-completion.bash
 fi
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
