@@ -4,8 +4,9 @@ call plug#begin('~/.vim/plugged')
 Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
 Plug 'alvan/vim-closetag' " allows to automatically close xml tags
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'ctrlpvim/ctrlp.vim'
 Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'mileszs/ack.vim'
 Plug 'sjl/gundo.vim'
@@ -147,9 +148,17 @@ if !empty(glob("~/.vim/plugged/vim-airline"))
     let g:airline#extensions#syntastic#enabled = 0
 endif
 
-if !empty(glob("~/.vim/plugged/ctrlp.vim"))
-    let g:ctrlp_user_command = ['.git', 'git ls-files --cached --others --exclude-standard %s']
-    let g:ctrlp_match_window = 'max:20'
+if !empty(glob("~/.vim/plugged/fzf.vim"))
+    function! s:ag_with_opts(arg, bang)
+        let tokens  = split(a:arg)
+        let ag_opts = join(filter(copy(tokens), 'v:val =~ "^-"'))
+        let query   = join(filter(copy(tokens), 'v:val !~ "^-"'))
+        call fzf#vim#ag(query, ag_opts, a:bang ? {} : {'down': '40%'})
+    endfunction
+
+    autocmd VimEnter * command! -nargs=* -bang FzfAgOpt call s:ag_with_opts(<q-args>, <bang>0)
+
+    let g:fzf_command_prefix = 'Fzf'
 endif
 
 if !empty(glob("~/.vim/plugged/ack.vim"))
@@ -184,14 +193,16 @@ endif
 " xmap ga <Plug>(EasyAlign)
 " nmap ga <Plug>(EasyAlign)
 
+nnoremap <C-p> :FzfFiles<CR>
+
 nnoremap <C-W>z <C-W>_<C-W><Bar>
 nnoremap <C-W>j :set splitbelow<CR>:sp<CR>:set nosplitbelow<CR>
 nnoremap <C-W>k :sp<CR>
 nnoremap <C-W>l :set splitright<CR>:vsp<CR>:set nosplitright<CR>
 nnoremap <C-W>h :vsp<CR>
 
-noremap <silent> zl @='10zl'<CR>
-noremap <silent> zh @='10zh'<CR>
+noremap <silent> zl @='20zl'<CR>
+noremap <silent> zh @='20zh'<CR>
 
 map <Space> <Leader>
 
@@ -208,11 +219,12 @@ nnoremap <Leader>d :bp\|:bd #<CR>
 noremap <Leader>x "_
 vnoremap <Leader>r "_dP
 
-nnoremap <Leader>p :CtrlPLine%<CR>
 nnoremap <Leader>u :GundoToggle<CR>
-nnoremap <Leader>a :Ack<CR>
-nnoremap <Leader>A :Ack<Space>
-vnoremap <Leader>a y:Ack<Space><C-R>*<CR>
+nnoremap <Leader>f :Ack<Space>
+nnoremap <Leader>p :FzfBuffers<CR>
+nnoremap <Leader>l :FzfBLines<CR>
+nnoremap <Leader>a :FzfAgOpt<Space><C-R><C-W><Space>--hidden<CR>
+vnoremap <Leader>a y:FzfAgOpt<Space><C-R>*<Space>--hidden<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
