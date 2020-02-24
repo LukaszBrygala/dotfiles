@@ -1,8 +1,6 @@
 call plug#begin('~/.vim/plugged')
 
-" fundamental
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --tern-completer' }
-Plug 'alvan/vim-closetag' " allows to automatically close xml tags
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer --rust-completer' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
@@ -10,38 +8,23 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'mileszs/ack.vim'
-Plug 'sjl/gundo.vim'
 Plug 'stephpy/vim-yaml' " fix slow yamls
-Plug 'tpope/vim-abolish' " contains cr command (changing case-style for word)
+Plug 'tpope/vim-abolish' " contains (for example) cr command (changing case-style for word)
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dispatch' " ???
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-unimpaired' " [x / ]x -like mappings
 Plug 'tpope/vim-vinegar'
-Plug 'vim-syntastic/syntastic'
+Plug 'w0rp/ale'
 
-" js
-" Plug 'mtscout6/syntastic-local-eslint.vim'
-Plug 'pangloss/vim-javascript'
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' }
+Plug 'Quramy/tsuquyomi' " typescript support
 
-" haskell
-Plug 'neovimhaskell/haskell-vim'
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-" ts
-" Plug 'leafgarland/typescript-vim' " syntax highlight
-" Plug 'Shougo/vimproc.vim', {'do' : 'make'} " required by tsuquyomi
-" Plug 'Quramy/tsuquyomi' " typescript support
-
-" c#
-" Plug 'OmniSharp/omnisharp-vim'
-
-" handy stuff
-" Plug 'junegunn/vim-easy-align'
+Plug 'rust-lang/rust.vim'
 
 " colors
 Plug 'vim-airline/vim-airline'
@@ -118,6 +101,13 @@ if !empty(glob("~/.vim/plugged/base16-vim")) && filereadable(expand("~/.vimrc_ba
     source ~/.vimrc_background
 endif
 
+if !empty(glob("~/.vim/plugged/ale"))
+    let g:ale_fixers = {
+                \ 'javascript': ['eslint']
+                \ }
+    let g:ale_fix_on_save = 1
+endif
+
 if !empty(glob("~/.vim/plugged/vim-airline"))
     let g:airline_theme = 'base16_twilight'
     let g:airline_powerline_fonts = 1
@@ -166,33 +156,15 @@ if !empty(glob("~/.vim/plugged/ack.vim"))
     let g:ackprg = 'ag --vimgrep --hidden'
 endif
 
-if !empty(glob("~/.vim/plugged/syntastic"))
-    let g:syntastic_javascript_checkers=['eslint']
-    let g:syntastic_always_populate_loc_list = 1
-    let g:syntastic_check_on_wq = 0
-    let g:syntastic_auto_loc_list=2 " don't open loc list automatically, but close if there are no errors
-endif
-
 if !empty(glob("~/.vim/plugged/vim-sneak"))
     let g:sneak#label = 1
     let g:sneak#use_ic_scs = 1
     let g:sneak#prompt = 'sneak > '
 endif
 
-if !empty(glob("~/.vim/plugged/vim-closetag"))
-    let g:closetag_filenames = '*.xml,*.html,*.xhtml,*.phtml'
-endif
-
-if !empty(glob("~/.vim/plugged/gundo.vim"))
-    let g:gundo_preview_bottom = 1
-endif
-
 if !empty(glob("~/.vim/plugged/vim-tmux-navigator"))
     let g:tmux_navigator_disable_when_zoomed = 1
 endif
-
-" xmap ga <Plug>(EasyAlign)
-" nmap ga <Plug>(EasyAlign)
 
 nnoremap <C-p> :FzfFiles<CR>
 
@@ -201,6 +173,7 @@ nnoremap <C-W>j :set splitbelow<CR>:sp<CR>:set nosplitbelow<CR>
 nnoremap <C-W>k :sp<CR>
 nnoremap <C-W>l :set splitright<CR>:vsp<CR>:set nosplitright<CR>
 nnoremap <C-W>h :vsp<CR>
+nnoremap <silent> <Leader><c-l> :TmuxNavigateRight<cr>
 
 noremap <silent> zl @='20zl'<CR>
 noremap <silent> zh @='20zh'<CR>
@@ -221,7 +194,8 @@ noremap <Leader>x "_
 vnoremap <Leader>r "_dP
 
 nnoremap <Leader>u :GundoToggle<CR>
-nnoremap <Leader>f :Ack<Space>
+nnoremap <Leader>f :Ack<Space><C-R><C-W><CR>
+nnoremap <Leader>F :Ack<Space>
 nnoremap <Leader>p :FzfBuffers<CR>
 nnoremap <Leader>l :FzfBLines<CR>
 nnoremap <Leader>a :FzfAgOpt<Space><C-R><C-W><Space>--hidden<CR>
@@ -258,3 +232,6 @@ if !exists(":DiffOrig")
     command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
                 \ | wincmd p | diffthis
 endif
+
+highlight SpellBad ctermbg=LightRed
+highlight SpellCap ctermbg=LightYellow
