@@ -1,10 +1,9 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py --ts-completer --go-completer --rust-completer' }
+Plug '/usr/local/opt/fzf' " required fzf to be already installed with brew
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'justinmk/vim-sneak'
 Plug 'mileszs/ack.vim'
@@ -15,21 +14,18 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-jdaddy'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-rsi'
-Plug 'tpope/vim-surround'
+Plug 'tpope/vim-surround' " allows bindings for changing suuroundings (parentheses, brackets...)
 Plug 'tpope/vim-unimpaired' " [x / ]x -like mappings
 Plug 'tpope/vim-vinegar'
 Plug 'w0rp/ale'
 
-Plug 'Quramy/tsuquyomi' " typescript support
+" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
 
-Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-Plug 'rust-lang/rust.vim'
+" Plug 'rust-lang/rust.vim'
 
 " colors
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/base16-vim'
+Plug 'itchyny/lightline.vim'
+Plug 'altercation/vim-colors-solarized'
 
 call plug#end()
 
@@ -95,48 +91,13 @@ set showcmd
 set visualbell
 
 syntax enable
+set background=light
+colorscheme solarized
 
-if !empty(glob("~/.vim/plugged/base16-vim")) && filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-endif
-
-if !empty(glob("~/.vim/plugged/ale"))
-    let g:ale_fixers = {
-                \ 'javascript': ['eslint']
-                \ }
-    let g:ale_fix_on_save = 1
-endif
-
-if !empty(glob("~/.vim/plugged/vim-airline"))
-    let g:airline_theme = 'base16_twilight'
-    let g:airline_powerline_fonts = 1
-    let g:airline_left_sep = ''
-    let g:airline_right_sep = ''
-    let g:airline_mode_map = {
-                \ 'n'  : 'N',
-                \ 'i'  : 'I',
-                \ 'v'  : 'V',
-                \ 'V'  : 'V',
-                \ '' : 'V'
-                \ }
-    let g:airline#extensions#default#layout = [
-                \ [ 'a', 'b', 'c' ],
-                \ [ 'x', 'z', 'error', 'warning' ]
-                \ ]
-    let g:airline#extensions#tabline#enabled = 1
-    let g:airline#extensions#tabline#formatter = 'unique_tail_improved'
-    let g:airline#extensions#tabline#fnamemod = ':t'
-    let g:airline#extensions#tabline#left_sep = ''
-    let g:airline#extensions#tabline#left_alt_sep = ''
-    let g:airline#extensions#tabline#right_sep = ''
-    let g:airline#extensions#tabline#right_alt_sep = ''
-    let g:airline#extensions#tabline#tab_nr_type = 1
-    let g:airline#extensions#tabline#close_symbol = 'windows >'
-    let g:airline#extensions#tabline#buffers_label = '< buffers'
-    let g:airline#extensions#branch#format = 2
-    let g:airline#extensions#wordcount#enabled = 0
-    let g:airline#extensions#syntastic#enabled = 0
+if !empty(glob("~/.vim/plugged/lightline.vim"))
+    let g:lightline = {
+         \ 'colorscheme': 'solarized',
+         \ }
 endif
 
 if !empty(glob("~/.vim/plugged/fzf.vim"))
@@ -166,7 +127,11 @@ if !empty(glob("~/.vim/plugged/vim-tmux-navigator"))
     let g:tmux_navigator_disable_when_zoomed = 1
 endif
 
-nnoremap <C-p> :FzfFiles<CR>
+if !empty(glob("~/.vim/plugged/ale"))
+    let g:ale_completion_enabled = 1
+endif
+
+nnoremap <C-p> :FzfGFiles<CR>
 
 nnoremap <C-W>z <C-W>_<C-W><Bar>
 nnoremap <C-W>j :set splitbelow<CR>:sp<CR>:set nosplitbelow<CR>
@@ -193,7 +158,6 @@ nnoremap <Leader>d :bp\|:bd #<CR>
 noremap <Leader>x "_
 vnoremap <Leader>r "_dP
 
-nnoremap <Leader>u :GundoToggle<CR>
 nnoremap <Leader>f :Ack<Space><C-R><C-W><CR>
 nnoremap <Leader>F :Ack<Space>
 nnoremap <Leader>p :FzfBuffers<CR>
@@ -201,9 +165,9 @@ nnoremap <Leader>l :FzfBLines<CR>
 nnoremap <Leader>a :FzfAgOpt<Space><C-R><C-W><Space>--hidden<CR>
 vnoremap <Leader>a y:FzfAgOpt<Space><C-R>*<Space>--hidden<CR>
 
-inoremap <C-U> <C-G>u<C-U>
+nnoremap <Leader>] :ALEGoToDefinition<CR>
 
-" nmap gr "ayiw[{V%:s/<C-r>a//gcI<left><left><left><left>
+inoremap <C-U> <C-G>u<C-U>
 
 if has('mouse')
     set mouse=a
