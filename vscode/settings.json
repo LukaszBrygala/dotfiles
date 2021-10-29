@@ -80,6 +80,9 @@
   "vim.leader": "<space>",
   "vim.useSystemClipboard": true,
   "vim.easymotion": true,
+  "vim.hlsearch": true,
+  "vim.easymotionMarkerForegroundColorTwoCharSecond": "#ff0000",
+  "vim.easymotionMarkerForegroundColorTwoCharFirst": "#ff0000",
   "editor.minimap.enabled": false,
   "workbench.statusBar.visible": true,
   "workbench.activityBar.visible": true,
@@ -89,13 +92,9 @@
   "terminal.integrated.macOptionClickForcesSelection": true,
   "editor.cursorSurroundingLines": 5,
   "editor.occurrencesHighlight": false,
-  "vim.hlsearch": true,
-  "vim.easymotionMarkerForegroundColorTwoCharSecond": "#ff0000",
-  "vim.easymotionMarkerForegroundColorTwoCharFirst": "#ff0000",
-  "window.zoomLevel": 0,
   "breadcrumbs.symbolPath": "off",
   "terminal.integrated.macOptionIsMeta": true,
-  "editor.wordWrap": "on",
+  "editor.wordWrap": "off",
   "editor.wrappingIndent": "indent",
   "editor.formatOnSave": true,
   "[typescript]": {
@@ -107,5 +106,18 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "extensions.ignoreRecommendations": false,
-  "explorer.autoReveal": false
+  "explorer.autoReveal": false,
+  "workbench.editorAssociations": {
+    "*.ipynb": "jupyter-notebook"
+  },
+  "editor.tabSize": 8,
+  "editor.cursorStyle": "line",
+  "editor.insertSpaces": false,
+  "editor.lineNumbers": "on",
+  "editor.wordSeparators": "/\\()\"':,.;<>~!@#$%^&*|+=[]{}`?-",
+  "notebook.cellToolbarLocation": {
+    "default": "right",
+    "jupyter-notebook": "left"
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh"
 }

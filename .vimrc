@@ -2,10 +2,9 @@ call plug#begin('~/.vim/plugged')
 
 Plug '/usr/local/opt/fzf' " required fzf to be already installed with brew
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'editorconfig/editorconfig-vim'
 Plug 'jiangmiao/auto-pairs' " closes braces and qoutes
 Plug 'junegunn/fzf.vim'
-Plug 'justinmk/vim-sneak'
+" Plug 'justinmk/vim-sneak'
 Plug 'mileszs/ack.vim'
 Plug 'stephpy/vim-yaml' " fix slow yamls
 Plug 'tpope/vim-abolish' " contains (for example) cr command (changing case-style for word)
@@ -17,11 +16,6 @@ Plug 'tpope/vim-rsi'
 Plug 'tpope/vim-surround' " allows bindings for changing suuroundings (parentheses, brackets...)
 Plug 'tpope/vim-unimpaired' " [x / ]x -like mappings
 Plug 'tpope/vim-vinegar'
-Plug 'w0rp/ale'
-
-" Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
-
-" Plug 'rust-lang/rust.vim'
 
 " colors
 Plug 'itchyny/lightline.vim'
@@ -127,10 +121,6 @@ if !empty(glob("~/.vim/plugged/vim-tmux-navigator"))
     let g:tmux_navigator_disable_when_zoomed = 1
 endif
 
-if !empty(glob("~/.vim/plugged/ale"))
-    let g:ale_completion_enabled = 1
-endif
-
 nnoremap <C-p> :FzfGFiles<CR>
 
 nnoremap <C-W>z <C-W>_<C-W><Bar>
@@ -164,8 +154,6 @@ nnoremap <Leader>p :FzfBuffers<CR>
 nnoremap <Leader>l :FzfBLines<CR>
 nnoremap <Leader>a :FzfAgOpt<Space><C-R><C-W><Space>--hidden<CR>
 vnoremap <Leader>a y:FzfAgOpt<Space><C-R>*<Space>--hidden<CR>
-
-nnoremap <Leader>] :ALEGoToDefinition<CR>
 
 inoremap <C-U> <C-G>u<C-U>
 
