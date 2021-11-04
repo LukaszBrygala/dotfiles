@@ -1,6 +1,3 @@
-
-# export ZSH_THEME="sunrise"
-
 export HISTSIZE=10000000
 export SAVEHIST=$HISTSIZE
 setopt HIST_IGNORE_ALL_DUPS
@@ -20,5 +17,5 @@ alias -- ----='4-'
 
 alias kc='kubectl'
 
-autoload -U compinit && compinit
+autoload -U compinit && compinit -i
 
