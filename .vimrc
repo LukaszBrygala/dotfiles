@@ -62,7 +62,7 @@ set sidescrolloff=10 " min number of columns to keep to the left/right of cursor
 set sidescroll=1 " how many columns to scroll horizontally while moving cursor (zh and zl not affected)
 
 set expandtab " use spaces to expand a tab
-set shiftwidth=4
+set shiftwidth=2
 set softtabstop=-1
 
 set autoindent

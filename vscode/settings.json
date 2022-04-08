@@ -3,78 +3,171 @@
   "workbench.editor.showTabs": true,
   "vim.normalModeKeyBindingsNonRecursive": [
     {
-      "before": ["s"],
-      "after": ["leader", "leader", "2", "s"]
+      "before": [
+        "s"
+      ],
+      "after": [
+        "leader",
+        "leader",
+        "2",
+        "s"
+      ]
     }
   ],
   "vim.normalModeKeyBindings": [
     {
-      "before": ["]", "q"],
-      "commands": ["editor.action.marker.next"]
+      "before": [
+        "]",
+        "q"
+      ],
+      "commands": [
+        "editor.action.marker.next"
+      ]
     },
     {
-      "before": ["[", "q"],
-      "commands": ["editor.action.marker.prev"]
+      "before": [
+        "[",
+        "q"
+      ],
+      "commands": [
+        "editor.action.marker.prev"
+      ]
     },
     {
-      "before": ["leader", "/"],
-      "commands": [":nohl"]
+      "before": [
+        "leader",
+        "/"
+      ],
+      "commands": [
+        ":nohl"
+      ]
     },
     {
-      "before": ["leader", "r"],
-      "commands": ["editor.action.goToReferences"]
+      "before": [
+        "leader",
+        "r"
+      ],
+      "commands": [
+        "editor.action.goToReferences"
+      ]
     },
     {
-      "before": ["-"],
-      "commands": ["workbench.files.action.showActiveFileInExplorer"]
+      "before": [
+        "-"
+      ],
+      "commands": [
+        "workbench.files.action.showActiveFileInExplorer"
+      ]
     },
     {
-      "before": ["leader", "x"],
-      "after": ["\"", "_"]
+      "before": [
+        "leader",
+        "x"
+      ],
+      "after": [
+        "\"",
+        "_"
+      ]
     },
     {
-      "before": ["leader", "s"],
-      "after": [":", "%", "s", "/"]
+      "before": [
+        "leader",
+        "s"
+      ],
+      "after": [
+        ":",
+        "%",
+        "s",
+        "/"
+      ]
     },
     {
-      "before": ["<C-w>", "l"],
-      "commands": ["workbench.action.splitEditorRight"]
+      "before": [
+        "<C-w>",
+        "l"
+      ],
+      "commands": [
+        "workbench.action.splitEditorRight"
+      ]
     },
     {
-      "before": ["<C-w>", "h"],
-      "commands": ["workbench.action.splitEditorLeft"]
+      "before": [
+        "<C-w>",
+        "h"
+      ],
+      "commands": [
+        "workbench.action.splitEditorLeft"
+      ]
     },
     {
-      "before": ["<C-w>", "j"],
-      "commands": ["workbench.action.splitEditorDown"]
+      "before": [
+        "<C-w>",
+        "j"
+      ],
+      "commands": [
+        "workbench.action.splitEditorDown"
+      ]
     },
     {
-      "before": ["<C-w>", "k"],
-      "commands": ["workbench.action.splitEditorUp"]
+      "before": [
+        "<C-w>",
+        "k"
+      ],
+      "commands": [
+        "workbench.action.splitEditorUp"
+      ]
     },
     {
-      "before": ["<C-l>"],
-      "commands": ["workbench.action.navigateRight"]
+      "before": [
+        "<C-l>"
+      ],
+      "commands": [
+        "workbench.action.navigateRight"
+      ]
     },
     {
-      "before": ["<C-h>"],
-      "commands": ["workbench.action.navigateLeft"]
+      "before": [
+        "<C-h>"
+      ],
+      "commands": [
+        "workbench.action.navigateLeft"
+      ]
     },
     {
-      "before": ["<C-j>"],
-      "commands": ["workbench.action.navigateDown"]
+      "before": [
+        "<C-j>"
+      ],
+      "commands": [
+        "workbench.action.navigateDown"
+      ]
     },
     {
-      "before": ["<C-k>"],
-      "commands": ["workbench.action.navigateUp"]
+      "before": [
+        "<C-k>"
+      ],
+      "commands": [
+        "workbench.action.navigateUp"
+      ]
     },
     {
-      "before": ["[", "<space>"],
-      "after": ["O", "<esc>"]
+      "before": [
+        "[",
+        "<space>"
+      ],
+      "after": [
+        "O",
+        "<esc>"
+      ]
     },
     {
-      "before": ["]", "<space>"],
-      "after": ["o", "<esc>"]
+      "before": [
+        "]",
+        "<space>"
+      ],
+      "after": [
+        "o",
+        "<esc>"
+      ]
     }
   ],
   "vim.leader": "<space>",
@@ -97,14 +190,8 @@
   "editor.wordWrap": "off",
   "editor.wrappingIndent": "indent",
   "editor.formatOnSave": true,
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "explorer.compactFolders": false,
   "editor.acceptSuggestionOnCommitCharacter": false,
-  "[javascript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "extensions.ignoreRecommendations": false,
   "explorer.autoReveal": false,
   "workbench.editorAssociations": {
